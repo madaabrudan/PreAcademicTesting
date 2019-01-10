@@ -60,4 +60,8 @@ public class HomePage {
     public String getInvalidErrorMessage(){
         return invalidCredentialsErrorMessage.getText();
     }
+
+    public void clearUsername() { inputUserName.clear(); }
+
+    public void clearPassword() { inputPassword.clear(); }
 }
