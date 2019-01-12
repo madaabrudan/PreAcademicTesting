@@ -38,11 +38,41 @@ public class ProfessorStudentPage {
     @FindBy(how = How.CSS, using = "input[id='lessonWeight-29'")
     private WebElement seminarPartialProcent;
 
-    @FindBy(how = How.CSS, using = "input[id='lessonWeight-1'")
+    @FindBy(how = How.CSS, using = "input[id='lessonWeight--1'")
     private WebElement seminar2PartialProcent;
 
     @FindBy(how = How.CSS, using = ".professor-course-save-btn.modal-close")
     private WebElement profesorSave;
+
+    @FindBy(how = How.CSS, using = "td[data-target='#student_detailsaiir2030'")
+    private WebElement student;
+
+    @FindBy(how = How.CSS, using = ".modal-open")
+    private WebElement modalStudent;
+
+    @FindBy(how = How.CSS, using = ".close")
+    private WebElement modalClose;
+
+    @FindBy(how = How.CSS, using = ".svg-inline--fa.fa-user.fa-w-14.toolbar-icon")
+    private WebElement profile;
+
+    @FindBy(how = How.CSS, using = "#change_passwd-btn")
+    private WebElement changePassword;
+
+    @FindBy(how = How.CSS, using = "input[id='current-password'")
+    private WebElement currentPassword;
+
+    @FindBy(how = How.CSS, using = "input[id='new-password'")
+    private WebElement newPassword;
+
+    @FindBy(how = How.CSS, using = "input[id='repeat-password']")
+    private WebElement confirmPassword;
+
+    @FindBy(how = How.CSS, using = "#save-btn")
+    private WebElement saveButton;
+
+    @FindBy(how = How.CSS, using = ".modal-close.ok")
+    private WebElement modalClose2;
 
     By noGroups = By.xpath("//div/a[@class='group']");
 
@@ -94,4 +124,24 @@ public class ProfessorStudentPage {
     public WebElement getSeminar2PartialProcent() { return seminar2PartialProcent; }
 
     public void getProfesorSave() { profesorSave.click(); }
+
+    public void getStudent() { student.click(); }
+
+    public WebElement getModalStudent() { return modalStudent; }
+
+    public void modalClose() { modalClose.click(); }
+
+    public WebElement getProfile() { return profile; }
+
+    public void changePassword() { changePassword.click(); }
+
+    public WebElement getCurrentPassword() { return currentPassword; }
+
+    public WebElement getNewPassword() { return newPassword; }
+
+    public WebElement getConfirmPassword() { return confirmPassword; }
+
+    public void saveButton() { saveButton.click(); }
+
+    public void modalClose2() { modalClose2.click(); }
 }

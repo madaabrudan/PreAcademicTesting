@@ -20,7 +20,7 @@ public class ProfessorStudentTest extends BaseTest {
 
         professorStudentPage = PageFactory.initElements(driver, ProfessorStudentPage.class);
         homePage = PageFactory.initElements(driver, HomePage.class);
-        homePage.login("guran", "guran");
+        homePage.login(guran, guran);
     }
 
     @Test
