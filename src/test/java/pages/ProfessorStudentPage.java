@@ -74,7 +74,21 @@ public class ProfessorStudentPage {
     @FindBy(how = How.CSS, using = ".modal-close.ok")
     private WebElement modalClose2;
 
+    @FindBy(how = How.CSS, using = "div[class='file btn btn-danger']")
+    private WebElement removePhoto;
+
+    @FindBy(how = How.CSS, using = "#profile-img-input")
+    private WebElement profilePhoto;
+
+    @FindBy(how = How.CSS, using = "input[name='file']")
+    private WebElement changePhoto;
+
+    By changePhotoSuccessMessage = By.cssSelector("div#modal_success div.modal-window div[class='modal-body ok']");
+
     By noGroups = By.xpath("//div/a[@class='group']");
+
+    public ProfessorStudentPage() {
+    }
 
     public By getNoGroups() {
         return noGroups;
@@ -138,6 +152,13 @@ public class ProfessorStudentPage {
     public WebElement getCurrentPassword() { return currentPassword; }
 
     public WebElement getNewPassword() { return newPassword; }
+
+    public String getProfilePhotoPath() { return profilePhoto.getAttribute("src"); }
+
+    public void clickRemovePhoto() { removePhoto.click(); }
+
+    public WebElement getChangePhoto() { return changePhoto; }
+    public By getChangePhotoSuccessMessage() { return changePhotoSuccessMessage; }
 
     public WebElement getConfirmPassword() { return confirmPassword; }
 
