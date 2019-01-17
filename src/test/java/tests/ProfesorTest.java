@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -9,6 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.ProfessorStudentPage;
+
+import java.io.File;
 
 public class ProfesorTest extends BaseTest {
 
@@ -113,5 +116,52 @@ public class ProfesorTest extends BaseTest {
         homePage.logout();
         homePage.login(guran, password);
         homePage.logout();
+    }
+
+    @Test
+    public void changeBiggerThan1MbPhotoTest() {
+        homePage.login(guran, guran);
+        professorStudentPage.getProfile().click();
+
+        File file = new File("src/test/resources/testdata/cornulete.png");
+        String fullPath = file.getAbsolutePath();
+
+        professorStudentPage.getChangePhoto().sendKeys(fullPath);
+
+        Alert alertDialog = driver.switchTo().alert();
+        String alertText = alertDialog.getText();
+
+        Assert.assertEquals(alertText, "The dimension file has to be less than 1 MB.");
+        alertDialog.accept();
+    }
+
+    @Test
+    public void changeLessThan1MbPhotoTest() throws InterruptedException {
+        homePage.login(guran, guran);
+        professorStudentPage.getProfile().click();
+
+        File file = new File("src/test/resources/testdata/poza2.png");
+        String fullPath = file.getAbsolutePath();
+
+        professorStudentPage.getChangePhoto().sendKeys(fullPath);
+
+        Thread.sleep(1000);
+        String message = driver.findElement(professorStudentPage.getChangePhotoSuccessMessage()).getText();
+        Assert.assertEquals(message, "Operation has succeeded");
+        professorStudentPage.modalClose2();
+    }
+
+    @Test
+    public void removePhotoTest() throws InterruptedException {
+        changeLessThan1MbPhotoTest();
+        professorStudentPage.clickRemovePhoto();
+
+        professorStudentPage.modalClose2();
+        String photoPath = professorStudentPage.getProfilePhotoPath();
+
+        boolean isContained = photoPath.contains("images/profile.jpg");
+
+        Assert.assertTrue(isContained);
+
     }
 }
