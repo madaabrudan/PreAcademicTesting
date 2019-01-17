@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.util.List;
+
 public class ProfessorStudentPage {
 
 
@@ -22,6 +24,11 @@ public class ProfessorStudentPage {
 
     @FindBy(how = How.CSS, using = "tr[id='enrollmentRow-1'] td[class='average-cell']")
     private WebElement averageGrade;
+
+    By firstStudentGradeList = By.cssSelector("tr#enrollmentRow-1 input[placeholder='Grade']");
+
+    @FindBy(how = How.CSS, using = "tr#enrollmentRow-1 td[class='average-cell']")
+    private WebElement firstAverageCell;
 
     @FindBy(how = How.CSS, using = "input[type='button']")
     private WebElement btn;
@@ -86,6 +93,8 @@ public class ProfessorStudentPage {
     By changePhotoSuccessMessage = By.cssSelector("div#modal_success div.modal-window div[class='modal-body ok']");
 
     By noGroups = By.xpath("//div/a[@class='group']");
+
+    public By languageDropDown = By.cssSelector("select#combo_lang");
 
     public ProfessorStudentPage() {
     }
@@ -165,4 +174,12 @@ public class ProfessorStudentPage {
     public void saveButton() { saveButton.click(); }
 
     public void modalClose2() { modalClose2.click(); }
+
+    public By getFirstStudentGradeList() {
+        return firstStudentGradeList;
+    }
+
+    public WebElement getFirstAverageCell() {
+        return firstAverageCell;
+    }
 }

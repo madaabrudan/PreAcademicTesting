@@ -1,11 +1,16 @@
 package tests;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.ProfessorStudentPage;
+
+import java.util.List;
+
+import static jdk.nashorn.internal.objects.NativeMath.round;
 
 public class ProfessorStudentTest extends BaseTest {
 
@@ -42,4 +47,39 @@ public class ProfessorStudentTest extends BaseTest {
         Assert.assertEquals(professorStudentPage.getAverageGrade(), grade);
         homePage.logout();
     }
+
+    @Test
+    public void justGradesInputAverageTest() throws InterruptedException {
+        professorStudentPage.getGroup().click();
+
+        List<WebElement> firstStudentGradeList = driver.findElements(professorStudentPage.getFirstStudentGradeList());
+
+        double actualSum = 0;
+
+        for (int i = 0; i < 8; i++) {
+            firstStudentGradeList.get(i).sendKeys("10");
+        }
+
+        firstStudentGradeList = driver.findElements(professorStudentPage.getFirstStudentGradeList());
+
+        for (int i = 0; i < 7; i++) {
+            String gradeValue = firstStudentGradeList.get(i).getAttribute("value");
+            double grade = Double.parseDouble(gradeValue);
+            grade = grade * 0.07;
+            actualSum = actualSum + grade;
+        }
+
+        actualSum = actualSum + Double.parseDouble(firstStudentGradeList.get(7).getAttribute("value")) * 0.09;
+
+        Thread.sleep(1000);
+        driver.findElement(professorStudentPage.languageDropDown).click();
+        Thread.sleep(1000);
+
+        double expectedSum = Double.parseDouble(professorStudentPage.getFirstAverageCell().getText());
+
+        actualSum = Math.round(actualSum * 100.00) / 100.00;
+
+        Assert.assertEquals(actualSum, expectedSum);
+    }
+
 }
